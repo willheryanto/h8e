@@ -1,16 +1,1 @@
-**This is an example of graphql realtime subscription using apollo.**
-
-## How to run
-
-### Server
-
-```bash
-node server/index.js
-```
-
-### Client
-
-```bash
-cd client
-npm start
-```
+I teach javascript at [hacktiv8](https://www.hacktiv8.com). This repo contains basic examples that I use to teach some concepts and tools.
