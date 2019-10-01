@@ -1,1 +1,1 @@
-I teach javascript at [hacktiv8](https://www.hacktiv8.com). This repo contains basic examples that I use to teach some concepts and tools.
+This repo contains basic examples that I use to teach some concepts and tools at [hacktiv8](https://www.hacktiv8.com).
