@@ -2,13 +2,15 @@ import React from 'react'
 
 import { useMySelector, useMyDispatch } from '../../context'
 import Board from '../Board'
+import { start } from '../../context/actions'
 
 export default () => {
   const started = useMySelector(state => state.started)
   const dispatch = useMyDispatch()
 
   const handleStart = () => {
-    dispatch({ type: 'START' })
+    dispatch(start())
+    // dispatch({type: 'START'})
   }
 
   return (
@@ -18,7 +20,7 @@ export default () => {
           started
             ? <Board />
             : <button onClick={handleStart}>
-                Start
+              Start
               </button>
         }
       </div>

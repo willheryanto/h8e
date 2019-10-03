@@ -1,6 +1,12 @@
 import { useState, useEffect, useContext, createContext } from 'react'
 
-const createStore = (reducer) => {
+import { thunk } from './middlewares'
+
+const createStore = (reducer, enhancer) => {
+  if (typeof enhancer === 'function') {
+    return enhancer(createStore)(reducer);
+  }
+
   let currentState = null;
   let listeners = []
 
@@ -22,6 +28,18 @@ const createStore = (reducer) => {
   return { getState, dispatch, subscribe }
 }
 
+const applyMiddleware = middleware => createStore => reducer => {
+  const store = createStore(reducer)
+
+  const dispatch = action => {
+    middleware(store)(store.dispatch)(action)
+  }
+
+  return {
+    ...store,
+    dispatch
+  }
+}
 
 const initialState = {
   started: false,
@@ -51,7 +69,7 @@ const reducer = (state, action) => {
 }
 
 // STORE
-export const store = createStore(reducer)
+export const store = createStore(reducer, applyMiddleware(thunk))
 
 // CONTEXT
 export const GameContext = createContext(null)
@@ -61,7 +79,7 @@ export const useMySelector = selector => {
   const store = useContext(GameContext)
   const [data, setData] = useState(store.getState())
   useEffect(() => {
-    store.subscribe(() => {
+    return store.subscribe(() => {
       setData(Object.assign({}, store.getState()))
     })
   }, [store])
@@ -73,3 +91,5 @@ export const useMyDispatch = () => {
   const store = useContext(GameContext)
   return store.dispatch
 }
+
+window.store = store
