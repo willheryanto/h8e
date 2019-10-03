@@ -11,10 +11,10 @@ export default () => {
       padding-top: 20px
     `}>
       <div>
-        <Link to="/">Home</Link>
+        <Link data-testid="link-to-home" to="/">Home</Link>
       </div>
       <div>
-        <Link to="/game">Game</Link>
+        <Link data-testid="link-to-game" to="/game">Game</Link>
       </div>
     </div>
   )

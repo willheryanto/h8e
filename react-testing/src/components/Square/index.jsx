@@ -7,6 +7,7 @@ export default props => {
       className="square"
       style={{ color: value === 'X' ? 'blue' : 'red' }}
       onClick={value ? null : handleClick}
+      aria-label="square-button"
     >
       {value}
     </button>
