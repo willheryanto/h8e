@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from '@testing-library/react'
+import { render, fireEvent } from '@testing-library/react'
 import '@testing-library/jest-dom/extend-expect'
 
 import Square from '.';
@@ -26,11 +26,15 @@ test('display correct value for O', () => {
 })
 
 test('display correct value for empty button', () => {
-  const { queryByText } = render(
-    <Square value={null} />
+  const handleClick = jest.fn()
+  const { queryByText, container } = render(
+    <Square value={null} handleClick={handleClick} />
   )
   expect(queryByText('X')).toBeNull()
   expect(queryByText('O')).toBeNull()
+
+  fireEvent.click(container.querySelector('button'))
+  expect(handleClick).toHaveBeenCalled()
 })
 
 
