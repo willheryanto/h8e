@@ -1,5 +1,6 @@
 /** @jsx jsx */
-import {css, jsx} from '@emotion/core'
+import { css, jsx } from '@emotion/core'
+import { useCallback } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
 import { fillSquare } from '../../store/actions'
@@ -10,9 +11,10 @@ export default props => {
   const turn = useSelector(state => state.turn)
   const dispatch = useDispatch()
 
-  const handleClick = i => {
-    dispatch(fillSquare(i))
-  }
+  const handleClick = useCallback(
+    i => () => dispatch(fillSquare(i)),
+    [dispatch]
+  ) 
 
   const status = 'Next player: ' + turn
 
@@ -30,8 +32,9 @@ export default props => {
             return (
               <Square
                 key={i}
+                index={i}
                 value={squares[i]}
-                handleClick={() => handleClick(i)}
+                handleClick={handleClick}
               />
             )
           })}
